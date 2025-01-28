@@ -21,6 +21,21 @@ https://github.com/microsoft/graphrag | microsoft/graphrag: A modular graph-base
 https://poloclub.github.io/transformer-explainer/ | Transformer Explainer: LLM Transformer Model Visually Explained
 ```
 
+### Install dependencies
+
+```
+uv venv venv
+source venv/bin/activate  # On Windows: .\venv\Scripts\activate
+uv pip install -r requirements.txt
+```
+
+```
+pre-commit install
+pre-commit run --all-files
+```
+
+
+
 ## Project 
 
 ### Why? 
