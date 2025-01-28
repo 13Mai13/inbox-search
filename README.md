@@ -1,5 +1,7 @@
 # inbox-search
 
+A search engine on top of my open browser tabs. 
+
 ## Setup
 
 ### Worktree
