@@ -1,5 +1,7 @@
 # inbox-search
 
+A search engine on top of my open browser tabs. 
+
 ## Setup
 
 ### Worktree
@@ -18,6 +20,21 @@ Example of `data.txt`
 https://github.com/microsoft/graphrag | microsoft/graphrag: A modular graph-based Retrieval-Augmented Generation (RAG) system
 https://poloclub.github.io/transformer-explainer/ | Transformer Explainer: LLM Transformer Model Visually Explained
 ```
+
+### Install dependencies
+
+```
+uv venv venv
+source venv/bin/activate  # On Windows: .\venv\Scripts\activate
+uv pip install -r requirements.txt
+```
+
+```
+pre-commit install
+pre-commit run --all-files
+```
+
+
 
 ## Project 
 
