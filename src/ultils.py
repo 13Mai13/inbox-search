@@ -11,15 +11,42 @@ def setup_logging(config: Dict[str, Any]) -> logging.Logger:
     """Setup logging configuration"""
     logging_config = config["logging"]
 
-    Path(logging_config["file"]).parent.mkdir(parents=True, exist_ok=True)
+    # Check for required keys first
+    required_keys = ["level", "format", "file"]
+    missing_keys = [key for key in required_keys if key not in logging_config]
+    if missing_keys:
+        raise KeyError(f"Missing required logging config keys: {', '.join(missing_keys)}")
 
-    logging.basicConfig(
-        level=logging_config["level"],
-        format=logging_config["format"],
-        handlers=[logging.FileHandler(logging_config["file"]), logging.StreamHandler()],
-    )
+    # Validate log level
+    try:
+        log_level = getattr(logging, logging_config["level"].upper())
+    except AttributeError:
+        raise ValueError(f"Invalid logging level: {logging_config['level']}")
 
-    return logging.getLogger(__name__)
+    try:
+        # Create log directory if it doesn't exist
+        log_path = Path(logging_config["file"])
+        log_path.parent.mkdir(parents=True, exist_ok=True)
+
+        # Reset any existing logging configuration
+        for handler in logging.root.handlers[:]:
+            logging.root.removeHandler(handler)
+
+        # Configure logging
+        logging.basicConfig(
+            level=log_level,
+            format=logging_config["format"],
+            handlers=[
+                logging.FileHandler(logging_config["file"]),
+                logging.StreamHandler()
+            ],
+            force=True
+        )
+
+        return logging.getLogger("src.ultils")
+
+    except (OSError, PermissionError) as e:
+        raise ValueError(f"Failed to setup logging directory: {str(e)}")
 
 
 def load_config(config_path: str) -> Dict[str, Any]:
