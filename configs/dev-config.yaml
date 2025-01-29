@@ -1,0 +1,9 @@
+# Logging Configuration
+logging:
+  level: 'INFO'
+  format: '%(asctime)s - %(name)s - %(levelname)s - %(message)s'
+  file: 'logs/inbox_search.log'
+# Data Processing Configuration
+data:
+  output_path: 'data/processed.json'
+  input_path: 'data/data.txt'

@@ -1,8 +1,18 @@
+[build-system]
+
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
 [project]
+
 name = "inbox-search"
 version = "0.1.0"
 description = "A search engine on top of my open browser tabs"
-authors = [
-    { name = "mai", github = "13Mai13" }
-]
+authors = [{name = "mai", github = "13Mai13"}]
 dependencies = []
+
+[tool.pytest.ini_options]
+
+pythonpath = "."
+testpaths = ["test"]
+python_files = ["test_*.py"]
