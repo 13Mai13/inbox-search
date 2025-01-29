@@ -1,4 +1,9 @@
+# Logging Configuration
+logging:
+  level: 'INFO'
+  format: '%(asctime)s - %(name)s - %(levelname)s - %(message)s'
+  file: 'logs/semantic_search.log'
 # Data Processing Configuration
 data:
-  output_dir: 'data/processed'
-  input_dir: 'data/data.txt'
+  output_path: 'data/processed.json'
+  input_path: 'data/data.txt'
