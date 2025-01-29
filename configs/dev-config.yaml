@@ -1,0 +1,4 @@
+# Data Processing Configuration
+data:
+  output_dir: 'data/processed'
+  input_dir: 'data/data.txt'
