@@ -34,7 +34,11 @@ pre-commit install
 pre-commit run --all-files
 ```
 
+### Commands
 
+```
+python main.py --stage search --env dev --query "python tips"
+```
 
 ## Project 
 

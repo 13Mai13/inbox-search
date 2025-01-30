@@ -7,3 +7,7 @@ logging:
 data:
   output_path: 'data/processed.json'
   input_path: 'data/data.txt'
+# Model Config
+search:
+  model_name: "all-MiniLM-L6-v2"
+  top_k: 5

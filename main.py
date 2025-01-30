@@ -10,20 +10,19 @@ import typer
 
 from src.ultils import load_config, setup_logging
 from src.preprocessing.main import main as preprocess_main
+from src.semantic_search.search import main as search_main
 
 
 class Stage(str, Enum):
     preprocess = "preprocess"
+    search = "search"
     all = "all"
-
 
 class Config(str, Enum):
     dev = "dev"
     prod = "prod"
 
-
 app = typer.Typer()
-
 
 def get_config_path(env: Config) -> Path:
     """Get config path and verify it exists"""
@@ -62,6 +61,10 @@ def main(
     env: Config = typer.Option(
         Config.dev,
         help="Environment to use (dev or prod)"
+    ),
+    query: str = typer.Option(
+        None,
+        help="Search query (required for search stage)"
     )
 ) -> None:
     """Run pipeline"""
@@ -86,9 +89,16 @@ def main(
 
         logger.info("Pipeline completed successfully")
 
+        if stage in [Stage.search, Stage.all]:
+            if query is None:
+                logger.error("Search query is required for search stage")
+                print("[red]Error: Search query is required for search stage[/red]")
+                raise typer.Exit(1)
+            logger.info("Starting search stage")
+            search_main(config, query)
+
     except Exception as e:
-        logger = logging.getLogger(__name__)
-        logger.exception(f"Pipeline failed with error: {str(e)}")
+        print(f"[red]Error: {str(e)}[/red]")
         raise typer.Exit(1)
 
 
