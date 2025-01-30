@@ -1,14 +1,27 @@
 """
 Semantic Search functionality
 """
-
+import json
 import logging
-from typing import List, Dict
+from pathlib import Path
+from typing import List, Dict, Any
 
 import torch
 from sentence_transformers import SentenceTransformer, util
 
 logger = logging.getLogger(__name__)
+
+def load_url_data(data_path: Path) -> List[Dict]:
+    """Load URL data from JSON file"""
+    logger.debug(f"Loading data from {data_path}")
+    try:
+        with open(data_path) as f:
+            data = json.load(f)
+        logger.info(f"Loaded {len(data)} URLs")
+        return data
+    except Exception as e:
+        logger.error(f"Failed to load data: {e}")
+        raise
 
 def load_model(model_name: str = 'all-MiniLM-L6-v2') -> SentenceTransformer:
     """Load and return the sentence transformer model"""
@@ -49,3 +62,22 @@ def search_urls(
     
     logger.info(f"Found {len(matches)} matches")
     return matches
+
+def main(config: Dict[str, Any], query: str):
+    """Main preprocessing function."""
+    logger.info("Starting data preprocessing")
+
+    model = load_model()
+    url_data = load_url_data(config['data']['output_path'])
+    embeddings = encode_urls(model, url_data)
+    
+    # Perform search
+    matches = search_urls(query, model, url_data, embeddings, top_k=5)
+    
+    # Output results
+    for idx, match in enumerate(matches, 1):
+        print(f"\n{idx}. Score: {match['score']:.4f}")
+        print(f"   Title: {match['title']}")
+        print(f"   URL: {match['url']}")
+
+    logger.info("Data preprocessing completed")
