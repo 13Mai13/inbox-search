@@ -80,4 +80,4 @@ def main(config: Dict[str, Any], query: str):
         print(f"   Title: {match['title']}")
         print(f"   URL: {match['url']}")
 
-    logger.info("Data preprocessing completed")
+    logger.info("Search was completed")
