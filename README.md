@@ -10,8 +10,29 @@ A search engine on top of my open browser tabs.
 .
 ├── LICENSE
 ├── README.md
-└── data
-    └── data.txt # File with all the links
+├── configs
+│   └── dev-config.yaml
+├── data
+│   ├── data.txt
+│   └── processed.json
+├── logs
+│   └── inbox_search.log
+├── main.py
+├── pyproject.toml
+├── requirements.txt
+├── src
+│   ├── __init__.py
+│   ├── __pycache__
+│   ├── preprocessing
+│   ├── semantic_search
+│   └── ultils.py
+├── test
+│   ├── __init__.py
+│   ├── __pycache__
+│   ├── test_preprocessing.py
+│   ├── test_semantic_search.py
+│   └── test_utils.py
+├── uv.lock
 ```
 
 Example of `data.txt`
