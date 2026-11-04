@@ -1,5 +1,7 @@
 # inbox-search
 
+> *Archived: built in 2025 to learn semantic search end to end. Not maintained.*
+
 A search engine on top of my open browser tabs. 
 
 ## Setup
